@@ -1,0 +1,83 @@
+<div class="card m-3">
+  <p-toolbar>
+    <div class="p-toolbar-group-start">
+      <p-button label="Agregar" icon="pi pi-plus" class="mr-2" (click)="agregarCar()"></p-button>
+      <!-- <p-button label="Crud User" icon="pi pi-user" class="m-2" (click)="irUSer()"
+        styleClass="p-button-success"></p-button> -->
+    </div>
+    <div class="p-toolbar-group-end">
+      <div class="p-inputgroup">
+        <input type="text" pInputText placeholder="Buscar" />
+        <button type="button" pButton icon="pi pi-search" styleClass="p-button-danger"></button>
+      </div>
+      <!-- <p-button label="Salir" icon="pi pi-sign-out" class="m-2" (click)="salir()"
+        styleClass="p-button-danger"></p-button> -->
+    </div>
+  </p-toolbar>
+</div>
+
+<div class="card m-3">
+  <p-toast position="top-right" class="rounded"></p-toast>
+  <p-table [value]="datos" [tableStyle]="{ 'min-width': '50rem' }">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>ID</th>
+        <th>Marca</th>
+        <th>Modelo</th>
+        <th>ID Usuario</th>
+        <th style="width: 5rem" class="text-center">Acciones</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-car>
+      <tr>
+        <td>{{ car.id }}</td>
+        <td>{{ car.marca }}</td>
+        <td>{{ car.modelo }}</td>
+        <td>{{ car.users_id }}</td>
+        <td class="d-flex flex-row">
+          <button type="button" pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success m-2"
+            (click)="editarCar(car)"></button>
+          <button type="button" pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning m-2"
+            (click)="deleteCar(car.id)"></button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+<p-dialog [(visible)]="agregarDialog" [style]="{width: '70%', height: '80%'}" header="Agregar Car" [modal]="true"
+  class="p-fluid">
+  <form [formGroup]="createCarForm">
+    <div class="flex flex-column gap-2 m-2">
+      <label htmlFor="marca">Marca</label>
+      <input pInputText id="marca" aria-describedby="username-help" formControlName="marca" />
+    </div>
+    <div class="flex flex-column gap-2 m-2">
+      <label htmlFor="modelo">Modelo</label>
+      <input pInputText id="modelo" aria-describedby="username-help" formControlName="modelo" />
+    </div>
+    <div class="flex flex-column gap-2 m-2">
+      <label htmlFor="user_id">ID Usuario</label>
+      <input pInputText id="user_id" aria-describedby="username-help" formControlName="users_id" />
+    </div>
+    <p-button label="Agregar" icon="pi pi-check" (onClick)="crear()"></p-button>
+  </form>
+</p-dialog>
+<p-dialog [(visible)]="modificarDialog" [style]="{width: '70%', height: '80%'}" header="Modificar Car" [modal]="true"
+  class="p-fluid">
+  <form [formGroup]="createCarForm">
+    <div class="flex flex-column gap-2 m-2">
+      <label htmlFor="marca">Marca</label>
+      <input pInputText id="marca" aria-describedby="username-help" formControlName="marca" />
+    </div>
+    <div class="flex flex-column gap-2 m-2">
+      <label htmlFor="modelo">Modelo</label>
+      <input pInputText id="modelo" aria-describedby="username-help" formControlName="modelo" />
+    </div>
+    <div class="flex flex-column gap-2 m-2">
+      <label htmlFor="user_id">ID Usuario</label>
+      <input pInputText id="user_id" aria-describedby="username-help" formControlName="users_id" />
+    </div>
+    <p-button label="Guardar" icon="pi pi-check" (onClick)="modificar()"></p-button>
+  </form>
+</p-dialog>
